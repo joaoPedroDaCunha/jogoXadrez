@@ -3,6 +3,7 @@ package application;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import chess.ChessMatch;
 import chess.ChessPiece;
 import chess.ChessPosition;
 
@@ -43,8 +44,15 @@ public class UI {
 		return new ChessPosition(column, row);
 		}
 		catch(RuntimeException e){
-			throw new InputMismatchException("Error reading ChessPosition. Valid values are form a1 to h8.");
+			throw new InputMismatchException("Error reading ChessPosition. Valid values are form A1 to H8.");
 		}
+	}
+	
+	public static void printMatch(ChessMatch chessMatch) {
+		printBoard(chessMatch.getPieces());
+		System.out.println();
+		System.out.println("Turn : " + chessMatch.getTurn());
+		System.out.println("Witting palyer: " + chessMatch.getCurrentPlater());
 	}
 	
 	private static void printPiece(ChessPiece piece, boolean background) {

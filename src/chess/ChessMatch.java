@@ -7,11 +7,23 @@ import chess.pieces.Rook;
 
 public class ChessMatch {
 	
+	private int turn;
+	private Color currentPlayer;
 	private Board board;
 	
 	public ChessMatch() {
 		board = new Board(8, 8);
+		turn = 1;
+	    currentPlayer = Color.WHITE; 
 		initialSetup();
+	}
+	
+	public int getTurn() {
+		return turn;
+	}
+	
+	public Color getCurrentPlater() {
+		return  currentPlayer;
 	}
 	
 	public ChessPiece[][] getPieces(){
@@ -30,6 +42,7 @@ public class ChessMatch {
 		validateSourcePosition(source);
 		validateTargetPosition(source,target);
 		Piece capturePiece = makeMove(source, target);
+		nestTurn();
 		return (ChessPiece)capturePiece;
 	}
 	
@@ -43,15 +56,23 @@ public class ChessMatch {
 		if(!board.thereIsAPiece(position)) {
 			throw new ChessException("There is no piece no source position");
 		}
-		if(board.piece(position).isThereAnyPossibleMove()) {
+		if(currentPlayer !=((ChessPiece) board.piece(position)).getColor()){
+			throw new ChessException("thr chose piece is bot yours");
+		}
+		if(!board.piece(position).isThereAnyPossibleMove()) {
 			throw new ChessException("There is no possible moves for the chose piece");
 		}
 	}
 	
 	private void validateTargetPosition(Position source,Position target) {
-		if(board.piece(source).isThereAnyPossibleMove()) {
+		if(!board.piece(source).isThereAnyPossibleMove()) {
 			throw new ChessException("The chose piece can't move to target position");
 		}
+	}
+	
+	private void nestTurn() {
+		turn++;
+		currentPlayer = (currentPlayer == Color.WHITE) ? Color.BLACK : Color.WHITE;
 	}
 	
 	private Piece makeMove(Position source,Position target) {
