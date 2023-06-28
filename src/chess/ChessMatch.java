@@ -43,13 +43,13 @@ public class ChessMatch {
 		if(!board.thereIsAPiece(position)) {
 			throw new ChessException("There is no piece no source position");
 		}
-		if(!board.piece(position).isThereAnyPossibleMove()) {
+		if(board.piece(position).isThereAnyPossibleMove()) {
 			throw new ChessException("There is no possible moves for the chose piece");
 		}
 	}
 	
 	private void validateTargetPosition(Position source,Position target) {
-		if(!board.piece(source).isThereAnyPossibleMove()) {
+		if(board.piece(source).isThereAnyPossibleMove()) {
 			throw new ChessException("The chose piece can't move to target position");
 		}
 	}
@@ -67,5 +67,6 @@ public class ChessMatch {
 	
 	private void initialSetup() {
 		placeNewPiece('B', 6,new Rook(board,Color.WHITE));
+		placeNewPiece('H', 7,new Rook(board,Color.BLACK));
 	}
 }
