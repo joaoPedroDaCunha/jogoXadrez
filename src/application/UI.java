@@ -59,6 +59,9 @@ public class UI {
 		System.out.println();
 		System.out.println("Turn : " + chessMatch.getTurn());
 		System.out.println("Witting palyer: " + chessMatch.getCurrentPlater());
+		if(chessMatch.getCheck()) {
+			System.out.println("Check");
+		}
 	}
 	
 	private static void printPiece(ChessPiece piece, boolean background) {
